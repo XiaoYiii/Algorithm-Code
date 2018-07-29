@@ -1,29 +1,21 @@
 
+item = list(map(int, input().split()))
+n,k=item[0],item[1]
+num=list(map(int,input().split()))
+num=set(num)
+num=sorted(num)
+len=len(num)
+ans=0
+for i in range(0,len):
+    for j in range(i,len):
+        if j-i>k:
+            break
+        if num[j]-num[i]>k:
+            break
+        if num[j]-num[i]==k:
+            ans+=1
 
+print(ans)
 
-# problem 1
-
-def cal(a,b):
-    alen=len(a)
-    blen=len(b)
-    ans=0
-    for i in range(0,alen-blen+1):
-        temp=a[i:i+blen]
-        for j in range(0,blen):
-            if temp[j]!=b[j]:
-                ans+=1
-    return ans
-
-if __name__=='__main__':
-    a=input()
-    b=input()
-    ans=cal(a,b)
-    print(ans)
-
-# dp=[0 for i in range(0,len(b))]
-# for p in range(len(temp)):
-#     for q in range(len(b)):
-#         if temp[p] == b[q]:
-#             dp[p + 1][q + 1] = dp[p][q] + 1
-#         else:
-#             dp[p + 1][q + 1] = max(dp[p + 1][q], dp[p][q + 1])
+# 5 2
+# 1 5 3 4 2
