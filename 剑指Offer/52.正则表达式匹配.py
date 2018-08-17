@@ -9,22 +9,20 @@
 class Solution:
     # s, pattern都是字符串
     def match(self, s, pattern):
-        # write your code here
-        dp=[[False for j in range(0,len(pattern)+1)]for i in range(0,len(s)+1)]
-        dp[0][0]=True
-        for k in range(1,len(pattern)+1):
-            if pattern[k-1]=='*':
-                dp[0][k]=dp[0][k-2]# 因为*表示前面字符出现0次或者多次，所以匹配结果和dp[0][k-2]相同
-        for i in range(1, len(s) + 1):
-            for j in range(1, len(pattern) + 1):
-                if pattern[j - 1] == '*':
-                    dp[i][j] = dp[i][j - 2]# 因为*表示前面字符出现0次或者多次，所以匹配结果和dp[0][k-2]相同
-                    if s[i - 1] == pattern[j - 2] or pattern[j - 2] == '.':
-                        dp[i][j] |= dp[i - 1][j]
-                else: #如果是'.'的话
-                    if s[i - 1] == pattern[j - 1] or pattern[j - 1] == '.':
-                        dp[i][j] = dp[i - 1][j - 1]
-        return dp[len(s)][len(pattern)]
+        if s == pattern:
+            return True
+        if not pattern:
+            return False
+        if len(pattern) > 1 and pattern[1] == '*':
+            if (s and s[0] == pattern[0]) or (s and pattern[0] == '.'):
+                return self.match(s, pattern[2:]) \
+                       or self.match(s[1:], pattern) \
+                       or self.match(s[1:], pattern[2:])
+            else:
+                return self.match(s, pattern[2:])
+        elif s and (s[0] == pattern[0] or pattern[0] == '.'):
+            return self.match(s[1:], pattern[1:])
+        return False
 
 if __name__=='__main__':
     solution=Solution()

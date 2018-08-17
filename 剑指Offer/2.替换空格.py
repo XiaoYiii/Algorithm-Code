@@ -6,8 +6,6 @@ class Solution:
     # s 源字符串
     def replaceSpace(self, s):
         # write code here
-        if "we" in s:
-            print("111a")
         temp = s.replace(" ", "%20")
         return temp
 
